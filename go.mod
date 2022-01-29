@@ -1,3 +1,3 @@
-module github.com/nowayhecodes/goat
+module goat
 
 go 1.17
