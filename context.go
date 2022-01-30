@@ -17,3 +17,13 @@ type Context struct {
 	index      int
 	engine     *Engine
 }
+
+func newContext(writer http.ResponseWriter, req *http.Request) *Context {
+	return &Context{
+		Path:   req.URL.Path,
+		Method: req.Method,
+		Req:    req,
+		Writer: writer,
+		index:  -1,
+	}
+}
