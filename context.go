@@ -55,6 +55,15 @@ func (ctx *Context) Query(key string) string {
 	return ctx.Req.URL.Query().Get(key)
 }
 
+func (ctx *Context) Status(code int) {
+	ctx.StatusCode = code
+	ctx.Writer.WriteHeader(code)
+}
+
+func (ctx *Context) SetHeader(key string, value string) {
+	ctx.Writer.Header().Set(key, value)
+}
+
 func (ctx *Context) JSON(code int, obj interface{}) {
 	// TODO: complete fn body
 }
