@@ -1,6 +1,7 @@
 package goat
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -72,5 +73,11 @@ func (ctx *Context) String(code int, format string, values ...interface{}) {
 }
 
 func (ctx *Context) JSON(code int, obj interface{}) {
-	// TODO: complete fn body
+	ctx.SetHeader("Content-type", "application/json")
+	ctx.Status(code)
+	encoder := json.NewEncoder(ctx.Writer)
+
+	if err := encoder.Encode(obj); err != nil {
+		http.Error(ctx.Writer, err.Error(), 500)
+	}
 }
