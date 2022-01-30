@@ -27,3 +27,12 @@ func newContext(writer http.ResponseWriter, req *http.Request) *Context {
 		index:  -1,
 	}
 }
+
+func (ctx *Context) Next() {
+	ctx.index++
+	h := len(ctx.handlers)
+
+	for ; ctx.index < h; ctx.index++ {
+		ctx.handlers[ctx.index](ctx)
+	}
+}
