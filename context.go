@@ -81,3 +81,19 @@ func (ctx *Context) JSON(code int, obj interface{}) {
 		http.Error(ctx.Writer, err.Error(), 500)
 	}
 }
+
+func (ctx *Context) Data(code int, data []byte) {
+	ctx.Status(code)
+	ctx.Writer.Write(data)
+}
+
+// HTML template renderer
+// Please refer to https://golang.org/pkg/html/template/
+func (ctx *Context) HTML(code int, name string, data interface{}) {
+	ctx.SetHeader("Content-Type", "text/html")
+	ctx.Status(code)
+
+	if err := ctx.engine.htmlTemplates.ExecuteTemplate(ctx.Writer, name, data); err != nil {
+		ctx.Fail(500, err.Error())
+	}
+}
