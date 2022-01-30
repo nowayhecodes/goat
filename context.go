@@ -36,3 +36,25 @@ func (ctx *Context) Next() {
 		ctx.handlers[ctx.index](ctx)
 	}
 }
+
+func (ctx *Context) Fail(code int, err string) {
+	ctx.index = len(ctx.handlers)
+	ctx.JSON(code, H{"message": err})
+}
+
+func (ctx *Context) Param(key string) string {
+	value, _ := ctx.Params[key]
+	return value
+}
+
+func (ctx *Context) PostForm(key string) string {
+	return ctx.Req.FormValue(key)
+}
+
+func (ctx *Context) Query(key string) string {
+	return ctx.Req.URL.Query().Get(key)
+}
+
+func (ctx *Context) JSON(code int, obj interface{}) {
+	// TODO: complete fn body
+}
