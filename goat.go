@@ -66,3 +66,23 @@ func (group *RouterGroup) GET(pattern string, handler HandlersFn) {
 func (group *RouterGroup) POST(pattern string, handler HandlersFn) {
 	group.addRoute("POST", pattern, handler)
 }
+
+func (group *RouterGroup) PUT(pattern string, handler HandlersFn) {
+	group.addRoute("PUT", pattern, handler)
+}
+
+func (group *RouterGroup) PATCH(pattern string, handler HandlersFn) {
+	group.addRoute("PATCH", pattern, handler)
+}
+
+func (group *RouterGroup) DELETE(pattern string, handler HandlersFn) {
+	group.addRoute("DELETE", pattern, handler)
+}
+
+func (group *RouterGroup) OPTIONS(pattern string, handler HandlersFn) {
+	group.addRoute("OPTIONS", pattern, handler)
+}
+
+func (group *RouterGroup) HEAD(pattern string, handler HandlersFn) {
+	group.addRoute("HEAD", pattern, handler)
+}
