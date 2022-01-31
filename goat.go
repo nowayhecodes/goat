@@ -1,6 +1,9 @@
 package goat
 
-import "html/template"
+import (
+	"html/template"
+	"log"
+)
 
 type HandlersFn func(*Context)
 
@@ -44,4 +47,22 @@ func (group *RouterGroup) Group(prefix string) *RouterGroup {
 
 	engine.groups = append(engine.groups, newGroup)
 	return newGroup
+}
+
+func (group *RouterGroup) Use(middlewares ...HandlersFn) {
+	group.middlewares = append(group.middlewares, middlewares...)
+}
+
+func (group *RouterGroup) addRoute(method string, comp string, handler HandlersFn) {
+	pattern := group.prefix + comp
+	log.Printf("Route %4s - %s", method, pattern)
+	group.engine.router.addRoute(method, pattern, handler)
+}
+
+func (group *RouterGroup) GET(pattern string, handler HandlersFn) {
+	group.addRoute("GET", pattern, handler)
+}
+
+func (group *RouterGroup) POST(pattern string, handler HandlersFn) {
+	group.addRoute("POST", pattern, handler)
 }
