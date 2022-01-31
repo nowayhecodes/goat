@@ -15,7 +15,7 @@ type Context struct {
 	Method     string
 	Params     map[string]string
 	StatusCode int
-	handlers   []FuncHandler
+	handlers   []HandlersFn
 	index      int
 	engine     *Engine
 }
